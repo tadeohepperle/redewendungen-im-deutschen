@@ -3,12 +3,28 @@ const fs = require("fs");
 const { readObjFromFile, writeObjToFile } = require("./filemanagement");
 
 // async..await is not allowed in global scope, must use a wrapper
-main();
 
 async function main() {
   let chosenSaying = await getChosenSayingForDay();
   let html = createHTMLForEmail("tadeo@do-mix.de", chosenSaying);
   await sendMail("tadeo@do-mix.de", "Deine tägliche Redewendung", html);
+}
+
+async function dailyCronjob() {
+  let chosenSaying = await getChosenSayingForDay();
+
+  let emails = await fs.promises.readFile("./data/emails.txt", "UTF-8");
+
+  emails = emails.split("\n").filter((e) => e.length > 4);
+  for (let i = 0; i < emails.length; i++) {
+    let to = emails[i];
+    let html = createHTMLForEmail(to, chosenSaying);
+    try {
+      await sendMail(to, "Deine tägliche Redewendung :)", html);
+    } catch (err) {
+      console.log(err);
+    }
+  }
 }
 
 async function getChosenSayingForDay() {
@@ -130,7 +146,7 @@ function createHTMLForEmail(to, chosenSaying) {
     <nav class="navbar fixed-bottom navbar-dark bg-dark">
         <div class="container">
             <div class="text-center navbar-brand" style="width: 100%; font-size: 16px">
-                <a href="${unsubscribehref}" style="color: #bbb; text-decoration: none">Keine Redewendungen mehr erhalten.</a>
+                <a href="${unsubscribehref}" style="color: #bbb;">Keine Redewendungen mehr erhalten.</a>
             </div>
         </div>
     </nav>
@@ -140,3 +156,5 @@ function createHTMLForEmail(to, chosenSaying) {
 
   return html;
 }
+
+module.exports.dailyCronjob = dailyCronjob;

@@ -14,7 +14,7 @@ if (!$thankyou && isset($_POST["email"])) {
     if (!stristr($currentemails, $email)) {
         file_put_contents($EMALFILEPATH, $email . "\n", FILE_APPEND);
         // TODO erste Bestätigungsmail senden.
-
+        $ret = exec('cd C:\xampp\htdocs\redewendungen-im-deutschen; node mailer.js 2>&1', $out, $err);
 
         header("Location:index.php?thankyou=1");
     } else {
