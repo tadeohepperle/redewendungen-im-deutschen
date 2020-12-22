@@ -21,6 +21,11 @@ async function dailyCronjob() {
     let html = createHTMLForEmail(to, chosenSaying);
     try {
       await sendMail(to, "Deine tägliche Redewendung :)", html);
+      await new Promise((resolve, reject) => {
+        setTimeout(() => {
+          resolve();
+        }, 2000);
+      });
     } catch (err) {
       console.log(err);
     }
@@ -40,7 +45,7 @@ async function sendMail(to, subject, html) {
   console.log(CONFIG);
   return new Promise((resolve, reject) => {
     var transporter = nodemailer.createTransport({
-      host: "mail.gmx.com",
+      host: CONFIG.emailserver,
       port: 587,
       tls: {
         ciphers: "SSLv3",
@@ -48,13 +53,13 @@ async function sendMail(to, subject, html) {
       },
       debug: true,
       auth: {
-        user: CONFIG.gmxusername,
-        pass: CONFIG.gmxpassword,
+        user: CONFIG.username,
+        pass: CONFIG.passwort,
       },
     });
 
     var mailOptions = {
-      from: CONFIG.gmxusername,
+      from: CONFIG.username,
       to,
       subject,
       html,
