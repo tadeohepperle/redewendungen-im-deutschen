@@ -165,9 +165,8 @@ function createHTMLForEmail(to, chosenSaying) {
     </div>
 </div>`
     }
-        
-
-    
+    <a href="https://test1.menumori.de/" style="color: #338; margin: 2em 0em;">Website mit Redewendungen</a>
+            
     <nav class="navbar fixed-bottom navbar-dark bg-dark">
         <div class="container">
             <div class="text-center navbar-brand" style="width: 100%; font-size: 16px">
