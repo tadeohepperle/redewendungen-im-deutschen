@@ -27,7 +27,7 @@ if (!$thankyou && isset($_POST["email"])) {
 
 ////////////////////////////////
 // fetch saying
-$sayingsAsJSON = file_get_contents("./data/redewendungen.json");
+$sayingsAsJSON = file_get_contents("./data/redewendungen_shuffled.json");
 $sayingsArr = json_decode($sayingsAsJSON, true);
 $randomIndex =  random_int(0, count($sayingsArr) - 1);
 $chosenSaying = $sayingsArr[$randomIndex];
