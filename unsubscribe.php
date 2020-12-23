@@ -5,12 +5,12 @@ $message = "Du wurdest aus der Mailing-Liste entfernt und erhältst in Zukunft k
 if (isset($_GET["email"])) {
     $email = urldecode($_GET["email"]);
     $f = file_get_contents("./data/emails.txt");
-    $emails = explode("\n", $f);
+    $emails = explode("|", $f);
     $newemails = array();
     foreach ($emails as $e) {
         if ($e != $email) array_push($newemails, $e);
     }
-    file_put_contents("./data/emails.txt", implode("\n", $newemails));
+    file_put_contents("./data/emails.txt", implode("|", $newemails));
 
     if (count($emails) == count($newemails)) $message = "Deine Email ist nicht in unserem System vorhanden.";
 } else {

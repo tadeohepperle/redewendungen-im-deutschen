@@ -12,7 +12,7 @@ if (!$thankyou && isset($_POST["email"])) {
     $email = preg_replace("/(\r\n|\n|\r)/", "", $email);
     $currentemails = file_get_contents($EMALFILEPATH);
     if (!stristr($currentemails, $email)) {
-        file_put_contents($EMALFILEPATH, $email . "\n", FILE_APPEND);
+        file_put_contents($EMALFILEPATH, $email . "|", FILE_APPEND);
         // TODO erste Bestätigungsmail senden.
         $ret = exec('cd C:\xampp\htdocs\redewendungen-im-deutschen; node mailer.js 2>&1', $out, $err);
 
