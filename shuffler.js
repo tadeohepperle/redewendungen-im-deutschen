@@ -2,7 +2,7 @@ const fs = require("fs");
 const { readObjFromFile, writeObjToFile } = require("./filemanagement");
 
 async function main() {
-  let arr = await readObjFromFile("./data/redewendungen.json");
+  let arr = await readObjFromFile("./data/redewendungen2.json");
   for (let i = arr.length - 1; i > 0; i--) {
     const j = Math.floor(Math.random() * i);
     const temp = arr[i];

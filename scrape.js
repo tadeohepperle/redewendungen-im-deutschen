@@ -10,7 +10,7 @@ const { title } = require("process");
 const { readObjFromFile, writeObjToFile } = require("./filemanagement");
 
 async function scrapeAllRedewendungenDataFromWiktionary() {
-  const FILEPATH = "./data/redewendungen.json";
+  const FILEPATH = "./data/redewendungen2.json";
   const WIKTIONARYURL = "https://de.wiktionary.org/";
   const alleLinks = await readObjFromFile("./data/alleRedewendungenLinks.json");
   console.log(alleLinks);
@@ -72,6 +72,7 @@ function wiktionaryHTMLToDataObject(html, url) {
     opposites: [],
     examples: [],
     sayings: [],
+    herkunft: [],
   };
   try {
     let $ = cheerio.load(html);
@@ -110,6 +111,14 @@ function wiktionaryHTMLToDataObject(html, url) {
           ddhtml = stripTags(ddhtml);
           ddhtml = ddhtml.replace(/(\[([^\]]+)\])/gi, "").trim();
           obj.synonyms.push(ddhtml);
+        });
+      }
+      if (title == "Herkunft:") {
+        $("dd", dl).each((i, dd) => {
+          let ddhtml = $(dd).html();
+          ddhtml = stripTags(ddhtml);
+          ddhtml = ddhtml.replace(/(\[([^\]]+)\])/gi, "").trim();
+          obj.herkunft.push(ddhtml);
         });
       }
       if (title == "Gegenwörter:") {
