@@ -97,20 +97,6 @@ function getRandomSaying()
             </div>
         </div>
     </div>
-    <?php if (count($chosenSaying["examples"]) != 0) : ?>
-        <div class=" text-dark mb-4 ">
-            <div class="container bg-light shadow-sm rounded">
-                <div class="p-4 mt-4">
-                    <h2>Beispiel:</h2>
-                    <?php foreach ($chosenSaying["examples"] as $example) : ?>
-                        <p>
-                            <?= $example ?>
-                        </p>
-                    <?php endforeach; ?>
-                </div>
-            </div>
-        </div>
-    <?php endif; ?>
     <?php if (count($chosenSaying["herkunft"]) != 0) : ?>
         <div class=" text-dark mb-4 ">
             <div class="container bg-light shadow-sm rounded">
@@ -125,6 +111,21 @@ function getRandomSaying()
             </div>
         </div>
     <?php endif; ?>
+    <?php if (count($chosenSaying["examples"]) != 0) : ?>
+        <div class=" text-dark mb-4 ">
+            <div class="container bg-light shadow-sm rounded">
+                <div class="p-4 mt-4">
+                    <h2>Beispiel:</h2>
+                    <?php foreach ($chosenSaying["examples"] as $example) : ?>
+                        <p>
+                            <?= $example ?>
+                        </p>
+                    <?php endforeach; ?>
+                </div>
+            </div>
+        </div>
+    <?php endif; ?>
+
     <div class=" text-dark mb-4 ">
         <div class="container bg-light shadow-sm rounded">
             <div class="p-4 mt-4">

@@ -126,6 +126,26 @@ function createHTMLForEmail(to, chosenSaying) {
         </div>
     </div>
     ${
+      !(chosenSaying["herkunft"].length > 0)
+        ? ``
+        : `<div class=" text-dark mb-4 ">
+    <div class="container bg-light shadow-sm rounded">
+        <div class="p-4 mt-4">
+            <h2>Herkunft:</h2>
+            ${chosenSaying["herkunft"]
+              .map(
+                (h) => ` <p>
+            ${h}
+        </p>`
+              )
+              .join("\n")}
+            
+        </div>
+    </div>
+</div>`
+    }
+        
+    ${
       !(chosenSaying["examples"].length > 0)
         ? ``
         : `<div class=" text-dark mb-4 ">
