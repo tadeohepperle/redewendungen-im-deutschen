@@ -15,7 +15,7 @@ async function dailyCronjob() {
 
   let emails = await fs.promises.readFile("./data/emails.txt", "UTF-8");
 
-  emails = emails.split("\n").filter((e) => e.length > 4);
+  emails = emails.split("|").filter((e) => e.length > 4);
   for (let i = 0; i < emails.length; i++) {
     let to = emails[i];
     let html = createHTMLForEmail(to, chosenSaying);
@@ -41,6 +41,7 @@ async function getChosenSayingForDay() {
 }
 
 async function sendMail(to, subject, html) {
+  console.log(`...Sending Mail to: ${to}`);
   let CONFIG = await readObjFromFile("./config.json");
   console.log(CONFIG);
   return new Promise((resolve, reject) => {
