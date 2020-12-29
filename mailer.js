@@ -34,7 +34,7 @@ async function dailyCronjob() {
 
 async function getChosenSayingForDay() {
   let allSayings = await readObjFromFile("./data/redewendungen_shuffled.json");
-  let now = new Date("2020-12-23");
+  let now = new Date();
   let fullDaysSinceEpoch = Math.floor(now / 8.64e7);
   randomIndex = fullDaysSinceEpoch % allSayings.length;
   return allSayings[randomIndex];
